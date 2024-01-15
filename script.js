@@ -1,3 +1,4 @@
+// Setting initial global variables
 var capArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var lowArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var numArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -8,13 +9,17 @@ var lowInclusion = false;
 var numInclusion = false;
 var symInclusion = false;
 
+// this function runs the prompts for what the user may want for their output
 function userPrompts() {
   userAmount = window.prompt("How many characters would you like your password to be?\nPlease choose between 8-128.", "12")
+  // Set up to where, if User chooses a number in the given parameters, than the next set of parameters are asked.
   if ((userAmount > 7) && (userAmount < 129)) {
     window.alert(userAmount + " sounds like a good amount to me. Now please let us know if you want Capital Letters, Lowercase Letters, Numbers, and Symbols.")
     if (window.confirm("Would you like Capital Letters in the password?\nClick OK for Yes and Cancel for No, please.") === false) {
+      // if user does not want this (or next 3) the array turning to ßnothing, making sure it wouldn't be there.
       capInclusion = false
       capArray = []
+      // the inclsion variable is for making sure a cap (or next 3) would be there, and reseting list uncase it's run through again with difference prompts.
     } else {
       capInclusion = true
       capArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -43,6 +48,7 @@ function userPrompts() {
   }
 }
 
+// here we have the random number generator, the end result of prompts and the return if the prompts aren't enter correctly.
 function compParameters() {
   var rand = "";
   const list = capArray.concat(lowArray, numArray, symArray)
@@ -53,6 +59,7 @@ function compParameters() {
     rand += list[(Math.floor(Math.random() * list.length))];
   }
   
+  // here is the inclusion variables to make sure that if a prompt is chose, that it appears at least once.
   while (((capInclusion === true) && (!rand.includes(capArray[0]) && !rand.includes(capArray[1]) && !rand.includes(capArray[2]) && !rand.includes(capArray[3]) && !rand.includes(capArray[4]) && !rand.includes(capArray[5]) && !rand.includes(capArray[6]) && !rand.includes(capArray[7]) && !rand.includes(capArray[8]) && !rand.includes(capArray[9]) && !rand.includes(capArray[10]) && !rand.includes(capArray[11]) && !rand.includes(capArray[12]) && !rand.includes(capArray[13]) && !rand.includes(capArray[14]) && !rand.includes(capArray[15]) && !rand.includes(capArray[16]) && !rand.includes(capArray[17]) && !rand.includes(capArray[18]) && !rand.includes(capArray[19]) && !rand.includes(capArray[20]) && !rand.includes(capArray[21]) && !rand.includes(capArray[22]) && !rand.includes(capArray[23]) && !rand.includes(capArray[24]) && !rand.includes(capArray[25]))) 
   || ((lowInclusion === true) && (!rand.includes(lowArray[0]) && !rand.includes(lowArray[1]) && !rand.includes(lowArray[2]) && !rand.includes(lowArray[3]) && !rand.includes(lowArray[4]) && !rand.includes(lowArray[5]) && !rand.includes(lowArray[6]) && !rand.includes(lowArray[7]) && !rand.includes(lowArray[8]) && !rand.includes(lowArray[9]) && !rand.includes(lowArray[10]) && !rand.includes(lowArray[11]) && !rand.includes(lowArray[12]) && !rand.includes(lowArray[13]) && !rand.includes(lowArray[14]) && !rand.includes(lowArray[15]) && !rand.includes(lowArray[16]) && !rand.includes(lowArray[17]) && !rand.includes(lowArray[18]) && !rand.includes(lowArray[19]) && !rand.includes(lowArray[20]) && !rand.includes(lowArray[21]) && !rand.includes(lowArray[22]) && !rand.includes(lowArray[23]) && !rand.includes(lowArray[24]) && !rand.includes(lowArray[25]))) 
   || ((numInclusion === true) && (!rand.includes(numArray[0]) && !rand.includes(numArray[1]) && !rand.includes(numArray[2]) && !rand.includes(numArray[3]) && !rand.includes(numArray[4]) && !rand.includes(numArray[5]) && !rand.includes(numArray[6]) && !rand.includes(numArray[7]) && !rand.includes(numArray[8]) && !rand.includes(numArray[9]))) 
@@ -66,12 +73,13 @@ function compParameters() {
     return rand;
 }
 
+// when the user tries to generate, this refers to above functions
 function generatePassword() {
   userPrompts()
   return compParameters()
 }
 
-
+// this was provided before project, but it is what makes the click start the functions
 var generateBtn = document.querySelector("#generate");
 
 function writePassword() {
